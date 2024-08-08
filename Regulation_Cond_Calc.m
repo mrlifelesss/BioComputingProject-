@@ -56,9 +56,6 @@ disp(['Number of Repressable functions ', num2str(sum(zero_at_02))]);
 disp(['Number of Repressable, Inducible functions ', num2str(sum(one_at_20))]);
 disp(['Number of Repressable, Inducible,Monotonic of activators functions ', num2str(sum(is_monotonic))]);
 disp(['Number of Repressable, Inducible,Monotonic of activators,Antitonic of inhibitors functions ', num2str(sum(is_antitonic))]);
-disp('For each function: Column 1 = x, Column 2 = y, Column 3 = output');
-disp('x reperests the 3 modes of activators - 0 = all off, 1 = some on,2 all on')
-disp('j reperests the 3 modes of depressros - 0 = all off, 1 = some on,2 all on')
 truth_tables_final = truth_tables_antitonic;
 
 
@@ -74,16 +71,16 @@ for i = 1:18
 end
 
 % Create headers
-headers = {'(0,0)', '(0,1)', '(0,2)', '(1,0)', '(1,1)', '(1,2)', '(2,0)', '(2,1)', '(2,2)'};
+headers = {'(0,0)- No Activators or Repressors', '(0,1) No Activators, Some Repressors', '(0,2) No Activators, All Repressors', '(1,0) Some Activators, No Repressors', '(1,1) Some Activators, Some Repressors', '(1,2)Some Activators, All Repressors', '(2,0) All Activators, No Repressors', '(2,1) All Activators, Some Repressors', '(2,2) All Activators and All Repressors'};
 
 % Create a table with headers
 T = array2table(chart, 'VariableNames', headers);
 
 % Add a row number column
-T.Properties.RowNames = cellstr(num2str((1:height(T))', 'Function %d'));
+T.Properties.RowNames = cellstr(num2str((0:height(T)-1)', 'Regulation Condition %d'));
 
 % Write to CSV file
-filename = 'function_chart.csv';
+filename = 'Regulation Conditions.csv';
 writetable(T, filename, 'WriteRowNames', true);
 
 % Display confirmation
@@ -92,4 +89,3 @@ disp(['Chart has been saved to ', filename, ' with headers']);
 % Display the chart in MATLAB command window
 disp('Chart of functions (1 if output > 0, 0 otherwise):');
 disp('Rows represent different functions, columns represent input combinations');
-disp(T);disp(['Chart has been saved to ', filename, ' with red highlighting for 1s']);
